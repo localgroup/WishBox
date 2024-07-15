@@ -7,14 +7,15 @@
 
     <body>
         <!-- Header-->
-    <header class="bg-light py">
+    <header class="bg-warning py-2">
         <div class="container px-4 px-lg-5 my-4">
             <div class="text-center text-dark">
-                <h1 class="display-4">Shopping Cart!</h1>
+                <h1 class="display-4">Your Shopping Cart!</h1>
             </div>
         </div>
     </header>
         <!-- Page Content -->
+         <br><br>
 
     <div class="container">
       {% if cart_products %}
@@ -90,7 +91,15 @@
       <br><br>
       <div class="col-mb-3">
         <div class="row">
-          <h3>Cart Total: {{totals}}</h3>
+          <div class="card">
+            <div class="card-body mb">
+              <h3><strong>Cart Total</strong>: $ {{totals}}</h3>
+                <div class="card-text">
+                  <p>*inclusive of all taxes</p>
+                </div>
+            </div>
+            
+          </div>
         </div>
       </div>
 
