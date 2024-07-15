@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-warning py-3">
+        <div class="container px-4 px-lg-5 my-3">
+            <div class="text-center text-success">
+                <h3 class="display-4 fw">Categories</h3>
+            </div>
+        </div>
+    </header>
+<br><br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        {% for category in categories %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><a href="{% url 'category' category %}">{{ category }}</a></h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
