@@ -6,7 +6,11 @@
     <header class="bg-warning py-2">
         <div class="container px-4 px-lg-5 my-4">
             <div class="text-center text-black">
-                <h1 class="display-4">Update</h1>
+                <h1 class="display-4">
+                        Profile
+                        &#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;
+                    <a href="{% url "update_user_info" %}" class="btn btn-sm btn-info rounded-pill">Update Info</a>
+                </h1>
             </div>
         </div>
     </header>
@@ -19,17 +23,19 @@
                 <form method="POST" action="{% url 'update_user' %}"> 
                     {% csrf_token %}
                     {{ user_form.as_p }}
-                    
-                    <br><br>
-                    <button class="btn btn-primary" type="submit">Update</button>
+                    &#160;&nbsp;
+                    <a href="{% url "update_password" %}" class="btn btn-sm btn-warning rounded-pill">Update Password</a>
+                    <br><br><br>
+                    <button class="btn btn-success btn-lg rounded-pill" type="submit">Update Profile</button>
                     
                 </form>
-                <br>
             </div>
 
         </div>
         
     </div>
+
+    <br><br><br>
 
     
 

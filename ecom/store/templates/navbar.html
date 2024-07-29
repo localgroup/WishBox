@@ -12,6 +12,16 @@
                     <a class="nav-link" href="{% url 'category_summary' %}">Category</a>
                 </li>
             </ul>
+
+            <form class="d-flex" method="POST" action="{% url 'search' %}" role="search">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" name="searched" placeholder="Search" aria-label="Search" required pattern="[a-zA-Z0-9\s]+" title="Enter your search query">
+                <button class="btn btn-warning" type="submit">Search</button>
+            </form>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
             <form class="d-flex">
                 <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>
                     Cart
@@ -27,7 +37,7 @@
                 </span>
                 &nbsp;&nbsp;
                 <span class="navbar-text">
-                    <a class="nav-link" href="{% url 'update_user' %}">Update Profile</a>
+                    <a class="nav-link" href="{% url 'update_user' %}">Profile</a>
                 </span>
             {% else %}
                 <span class="navbar-text">
