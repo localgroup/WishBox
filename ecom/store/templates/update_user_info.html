@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-warning py-2">
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="text-center text-black">
+                <h1 class="display-4">Profile</h1>
+            </div>
+        </div>
+    </header>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <h3 class="rounded-text">Update your profile info.</h3>
+
+            <div class="col-md-6 offset-md-3">
+                <form method="POST" action="{% url 'update_user_info' %}"> 
+                    {% csrf_token %}
+                    {{ info_form.as_p }}
+                    <br>
+                    <button class="btn btn-info btn-lg rounded-pill" type="submit">Update</button>
+                    
+                </form>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <br><br><br>
+
+    
+
+{% endblock %}
