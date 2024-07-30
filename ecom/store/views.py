@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django import forms
+from django.db.models import Q
+import json
+from cart.cart import Cart
 
-from django.utils.timezone import now
 
 
 def home(request):
@@ -20,7 +22,19 @@ def about(request):
 
 
 def search(request):
-    return render(request, 'search.html', {})
+    if request.method == "POST":
+        searched = request.POST['searched']
+        # Query the DB
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(category__name__icontains=searched) | Q(description__icontains=searched))
+        # IF NULL
+        if not searched:
+            messages.success(request, "Oops! We could not find that...")
+            return render(request, 'search.html', {})
+        else:
+            return render(request, 'search.html', {'searched':searched})
+        
+    else:
+        return render(request, 'search.html', {})
 
 
 def update_user(request):
@@ -89,6 +103,19 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            
+            #Pull the Cart
+            current_user = Profile.objects.get(user__id=request.user.id)
+            saved_cart = current_user.old_cart
+            if saved_cart:
+                # Convert to dictionary
+                new_cart = json.loads(saved_cart)
+                #Get the Cart
+                cart = Cart(request)
+                #Pull from db
+                for key, value in new_cart.items():
+                    cart.db_add(product=key, quantity=value)
+                
             messages.success(request, ("Welcome back!"))
             return redirect('home')
         else:
