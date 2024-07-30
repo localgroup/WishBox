@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
+
+from payment_app.forms import ShippingForm
+from payment_app.models import ShippingAddress
+
 from django import forms
 from django.db.models import Q
 import json
@@ -82,15 +86,25 @@ def update_password(request):
     
 def update_user_info(request):
     if request.user.is_authenticated:
+        # Get user
         current_user = Profile.objects.get(user__id=request.user.id)
-        info_form = UserInfoForm(request.POST or None, instance=current_user)
+        # Get user's shipping info
+        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
         
-        if info_form.is_valid():
-            info_form.save()
+        # User's Billing Form
+        info_form = UserInfoForm(request.POST or None, instance=current_user)
+        #User's Shipping Form
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+        
+        if request.method == 'POST':
+            if info_form.is_valid():
+                info_form.save()
+            if shipping_form.is_valid():
+                shipping_form.save()
             
-            messages.success(request, "Your profile info has been succesfully updated!")
+            messages.success(request, "Your info has been succesfully updated!")
             return redirect('update_user')
-        return render(request, 'update_user_info.html', {'info_form':info_form})
+        return render(request, 'update_user_info.html', {'info_form':info_form, 'shipping_form':shipping_form})
     else:
         messages.success(request, "You must be logged in!")
         return redirect('home')
