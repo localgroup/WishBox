@@ -8,6 +8,7 @@ from django.contrib import messages
 # Create your views here.
 
 def cart_summary(request):
+    # Get cart
     cart = Cart(request)
     cart_products = cart.get_prods
     quantities = cart.get_quants

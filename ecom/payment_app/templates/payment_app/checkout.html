@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <body>
+        <!-- Header-->
+    <header class="bg-warning py-2">
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="text-center text-dark">
+                <h1 class="display-4">Checkout</h1>
+            </div>
+        </div>
+    </header>
+        <!-- Page Content -->
+         <br><br>
+
+    <div class="container">
+
+        <center>
+
+            <div class="col-md-6 offset-md-3 card text-center">
+                <div class="card-header bg-warning py-2">
+                  <h3>
+                    Order Summary
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-muted">Review your orders</h5>
+                  <p class="card-text">
+    
+                    {% for product in cart_products %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">
+                                    {% if product.is_sale %}
+                                        ${{ product.sale_price }}
+                                    {% else %}
+                                        ${{ product.price }}
+                                    {% endif %}
+                                </p>
+                                <small class="text-muted">Quantity:
+                                    {% for key, value in quantities.items %}
+                                        {% if key == product.id|slugify %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </small>
+                            </div>
+                        </div>
+                    {% endfor %}
+    
+                    <br/>
+    
+                  </p>
+                  <a href="#" class="btn btn-rounded btn-lg btn-success">Payment</a>
+                </div>
+                <div class="card-footer text-body-secondary bg-warning py-2">
+                </div>
+              </div>
+    
+        </div>
+        <br>
+
+        </center>
+
+    </div>
+    <br><br><br>
+
+
+{% endblock  %}
