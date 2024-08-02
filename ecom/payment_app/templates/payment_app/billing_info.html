@@ -10,7 +10,7 @@
     <header class="bg-warning py-2">
         <div class="container px-4 px-lg-5 my-4">
             <div class="text-center text-dark">
-                <h1 class="display-4">Checkout</h1>
+                <h1 class="display-4">Billing</h1>
             </div>
         </div>
     </header>
@@ -63,12 +63,12 @@
                   </p>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-rounded btn-outline-info ">Update Items</a>
-                    </div>
                     {% comment %} <div class="col-md-6">
-                        <a href="#" class="btn btn-rounded btn-warning">Pay</a>
+                        <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-rounded btn-outline-info ">Update Items</a>
                     </div> {% endcomment %}
+                    {% comment %} <div class="col-md-12"> {% endcomment %}
+                        <button type="submit" class="btn btn-outline-primary btn-block ">Pay Now</button>
+                    {% comment %} </div> {% endcomment %}
                 </div>
                 
                 </div>
@@ -82,7 +82,7 @@
 
         </center>
 
-        <center>
+        {% comment %} <center>
 
             <div class="card col-md-5 offset-md-3 card text-center">
                 <h5 class="card-header">Shipping details</h5>
@@ -91,12 +91,12 @@
                         {{ shipping_form.as_p }}
                         {% csrf_token %}
                         <br>
-                        <button type="submit" class="btn btn-outline-primary">Continue to Billing</button>
+                        <a href="#" class="btn btn-outline-primary">Pay Now</a>
                     </form>
                 </div>
             </div>
 
-        </center>
+        </center> {% endcomment %}
         <br>
 
     </div>

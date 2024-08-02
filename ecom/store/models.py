@@ -22,14 +22,14 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
     
-# Create a default profile when a User signs up.
-  
+
+# Create a default profile when a User signs up. 
 def create_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = Profile(user=instance)
         user_profile.save()
 
-#Automate Profile
+#Automate create_profile()
 post_save.connect(create_profile, sender=User)
 
     

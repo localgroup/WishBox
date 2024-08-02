@@ -17,19 +17,20 @@
         <!-- Page Content -->
          <br><br>
 
-    <div class="container">
+    <div class="container col-md-6 offset-md-3 ">
+      
       {% if cart_products %}
         {% for product in cart_products %}
-        <div class="card mb-3">
+        <div class="card mb-3 h-100">
             <div class="row g-0">
-              <div class="col-md-4">
+              <div class="col-md-4 p-5">
                 <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <center>
                     <h5 class="card-title">{{product.name}}</h5>
-                    <p class="card-text">{{product.description}}</p>
+                    <p class="card-text">{{product.description|truncatechars:200}}</p>
                     <p class="card-text"><small class="text-body-secondary"></small></p>
   
                     {% if product.is_sale %}
@@ -81,14 +82,18 @@
               </div> 
             </div>
           </div>
+
         {% endfor %}
       {% else %}
         <center>
             <br><br><br><br><br>
             <h2>Your Cart is empty...</h2>
+            <br>
+            <a class="btn btn-outline-info" href="{% url 'home' %}">Add Items</a>
         </center>
       {% endif %}
       <br><br>
+      {% if cart_products %}
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8">
@@ -108,7 +113,8 @@
           </div>
         </div>
       </div>
-
+      {% endif %}
+  
     </div>
     <br><br>
     
