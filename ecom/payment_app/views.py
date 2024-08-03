@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from cart.cart import Cart
 from payment_app.models import ShippingAddress
-from payment_app.forms import ShippingForm
+from payment_app.forms import ShippingForm, PaymentForm
 from django.contrib import messages
 
+
+
+def process_order(request):
+    return render(request, "payment_app/process_order.html", {})
 
 
 def billing_info(request):
@@ -14,9 +18,19 @@ def billing_info(request):
         quantities = cart.get_quants
         totals = cart.cart_total()
         
-        shipping_form = ShippingForm(request.POST)
-        return render(request, "payment_app/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_form":shipping_form})
+        # User Authentication
+        if request.user.is_authenticated:
+            billing_form = PaymentForm()
+            return render(request, "payment_app/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_info":request.POST, "billing_form":billing_form})
+        
+        else:
+            billing_form = PaymentForm()
+            return render(request, "payment_app/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_info":request.POST, "billing_form":billing_form})
+    
+        shipping_form = request.POST
+        return render(request, "payment_app/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_info":request.POST, "shipping_form":shipping_form})
 
+    
     else:
         messages.success(request, "Access denied!")
         return redirect('home')
