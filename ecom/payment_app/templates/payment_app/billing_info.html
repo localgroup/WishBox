@@ -59,9 +59,9 @@
                                     {% endfor %}
                                 </p>
 
-                                <div class="row">
+                                {% comment %} <div class="row">
                                     <button type="submit" class="btn btn-outline-primary btn-block ">Pay Now</button>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                             <div class="card-footer text-body-secondary bg-warning py-2">
                                 <b>Total: $ {{ totals }}</b>
@@ -76,7 +76,7 @@
                             <h5 class="card-header">Shipping details</h5>
                             <div class="card-body">
                                 Name: {{ shipping_info.shipping_full_name }}<br/>
-                                Email: {{ shipping_info.shipping_email }}<br/>
+                                Phone: {{ shipping_info.shipping_phone }}<br/>
                                 Address 1: {{ shipping_info.shipping_address1 }}<br/>
                                 Address 2: {{ shipping_info.shipping_address2 }}<br/>
                                 City: {{ shipping_info.shipping_city }}<br/>
@@ -97,7 +97,10 @@
                                     {% csrf_token %}
                                     {{ billing_form.as_p }}
                                     <br/>
-                                    <button type="submit" class="btn btn-outline-primary btn-block ">Pay Now</button>
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-outline-primary btn-block ">Pay Now</button>
+                                    </div>
+                                    {% comment %} <button type="submit" class="btn btn-outline-primary btn-block ">Pay Now</button> {% endcomment %}
                                 </form>
                             </div>
                         </div>

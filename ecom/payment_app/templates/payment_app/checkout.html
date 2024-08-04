@@ -19,85 +19,79 @@
 
     <div class="container">
 
-        <center>
-
-            <div class="col-md-6 offset-md-3 card text-center">
-                <div class="card-header bg-warning py-2">
-                  <h3>
-                    Order Summary
-                  </h3>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-muted">Review your orders</h5>
-                  <p class="card-text">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-header bg-warning py-2">
+                      <h3>
+                        Order Summary
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title text-muted">Review your orders</h5>
+                      <p class="card-text">
     
-                    {% for product in cart_products %}
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4 class="card-title">{{ product.name }}</h4>
-                                        <p class="card-text">
-                                            {% if product.is_sale %}
-                                                ${{ product.sale_price }}
-                                            {% else %}
-                                                ${{ product.price }}
-                                            {% endif %}
-                                        </p>
-                                        <small class="text-muted">Quantity:
-                                            {% for key, value in quantities.items %}
-                                                {% if key == product.id|slugify %}
-                                                    {{ value }}
+                        {% for product in cart_products %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 class="card-title">{{ product.name }}</h4>
+                                            <p class="card-text">
+                                                {% if product.is_sale %}
+                                                    ${{ product.sale_price }}
+                                                {% else %}
+                                                    ${{ product.price }}
                                                 {% endif %}
-                                            {% endfor %}
-                                        </small>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <img style="width: 100px; height: 100px; float: right;" class="card-img-top" src="{{ product.image.url }}" alt="" />
+                                            </p>
+                                            <small class="text-muted">Quantity:
+                                                {% for key, value in quantities.items %}
+                                                    {% if key == product.id|slugify %}
+                                                        {{ value }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <img style="width: 100px; height: 100px; float: right;" class="card-img-top" src="{{ product.image.url }}" alt="" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        {% endfor %}
+
+                      </p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-rounded btn-outline-info ">Update Items</a>
                         </div>
-                    {% endfor %}
-
-                  </p>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-rounded btn-outline-info ">Update Items</a>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-rounded btn-outline-primary">Pay Now</a>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <a href="#" class="btn btn-rounded btn-outline-primary">Pay Now</a>
+                    
                     </div>
-                </div>
-                
-                </div>
-                <div class="card-footer text-body-secondary bg-warning py-2">
-                    <b>Total: $ {{totals}}</b>
+                    <div class="card-footer text-body-secondary bg-warning py-2">
+                        <b>Total: $ {{totals}}</b>
+                    </div>
                 </div>
             </div>
-    
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <h5 class="card-header">Shipping details</h5>
+                    <div class="card-body">
+                        <form method='POST' action="{% url 'billing_info' %}">
+                            {{ shipping_form.as_p }}
+                            {% csrf_token %}
+                            <br>
+                            <button type="submit" class="btn btn-outline-primary">Continue to Billing</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-
-        </center>
-
-        <center>
-
-            <div class="card col-md-5 offset-md-3 card text-center">
-                <h5 class="card-header">Shipping details</h5>
-                <div class="card-body">
-                    <form method='POST' action="{% url 'billing_info' %}">
-                        {{ shipping_form.as_p }}
-                        {% csrf_token %}
-                        <br>
-                        <button type="submit" class="btn btn-outline-primary">Continue to Billing</button>
-                    </form>
-                </div>
-            </div>
-
-        </center>
-        <br>
+        <br><br>
 
     </div>
     <br><br>
