@@ -7,6 +7,32 @@ from django.contrib.auth.models import User
 from store.models import Product
 
 
+def admin_dashboard(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return render(request, "payment_app/admin_dashboard.html", {})
+    
+    else:
+        messages.success(request, "Access denied!")
+        return redirect('home')
+
+
+def order_shipped(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return render(request, "payment_app/order_shipped.html", {})
+    
+    else:
+        messages.success(request, "Access denied!")
+        return redirect('home')
+    
+    
+def order_not_shipped(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return render(request, "payment_app/order_not_shipped.html", {})
+    
+    else:
+        messages.success(request, "Access denied!")
+        return redirect('home')    
+    
 
 def process_order(request):
     if request.POST:
@@ -59,6 +85,11 @@ def process_order(request):
                         #Create order items
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, user_id=user.id, quantity=value, price=price)
                         create_order_item.save()
+                        
+            # Delete or update the cart after placing an order
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
             
             
             messages.success(request, "Order placed!")
@@ -87,6 +118,11 @@ def process_order(request):
                         #Create order items
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price)
                         create_order_item.save()
+                        
+            # Delete or update the cart after placing an order
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
             
             
             messages.success(request, "Order placed!")
