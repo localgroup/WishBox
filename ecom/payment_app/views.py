@@ -7,6 +7,17 @@ from django.contrib.auth.models import User
 from store.models import Product
 
 
+def orders(request, pk):
+    if request.user.is_authenticated and request.user.is_superuser:
+        order = Order.objects.get(id=pk)
+        items = OrderItem.objects.filter(order=pk)
+        return render(request, "payment_app/orders.html", {"items":items, "order":order})
+    
+    else:
+        messages.success(request, "Access denied!")
+        return redirect('home')
+
+
 def admin_dashboard(request):
     if request.user.is_authenticated and request.user.is_superuser:
         return render(request, "payment_app/admin_dashboard.html", {})
@@ -18,7 +29,8 @@ def admin_dashboard(request):
 
 def order_shipped(request):
     if request.user.is_authenticated and request.user.is_superuser:
-        return render(request, "payment_app/order_shipped.html", {})
+        orders = Order.objects.filter(shipped=True)
+        return render(request, "payment_app/order_shipped.html", {"orders":orders})
     
     else:
         messages.success(request, "Access denied!")
@@ -27,7 +39,8 @@ def order_shipped(request):
     
 def order_not_shipped(request):
     if request.user.is_authenticated and request.user.is_superuser:
-        return render(request, "payment_app/order_not_shipped.html", {})
+        orders = Order.objects.filter(shipped=False)
+        return render(request, "payment_app/order_not_shipped.html", {"orders":orders})
     
     else:
         messages.success(request, "Access denied!")

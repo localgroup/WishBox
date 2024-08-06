@@ -32,8 +32,14 @@
 
             {% endfor %}
         {% endif %}
+
+        {% block static %}
+        {% endblock %}
         
         {% block content %}
+        {% endblock %}
+
+        {% block script %}
         {% endblock %}
 
 

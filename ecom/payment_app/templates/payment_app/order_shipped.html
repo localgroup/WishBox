@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 
     <!-- Header-->
@@ -16,13 +18,37 @@
         <div class="row">
             <center>
                 <div class="col-md-6">
-                    <p>Orders shipped</p>
+                    <h3>Shipped Items</h3>
+                    <br>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-info">
+                          <tr>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Date Shipped</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                            <tr data-url="{% url 'orders' item.id %}">
+                                <td>{{ item.id }}</td>
+                                <td>$ {{ item.amount_paid }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.shipped_date }}</td>
+                              </tr>
+                            {% endfor %}
+                          
+                        </tbody>
+                      </table>
                 </div>
             </center>
         </div>
         
     </div>
 
-    
+{% endblock %}
 
+{% block script %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

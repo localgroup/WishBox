@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="text-center text-light">
+                <h1 class="display-4">Orders Shipped</h1>
+            </div>
+        </div>
+    </header>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <center>
+                <div class="col-md-6">
+                    
+
+                        <div class="card text-center">
+                            <div class="card-header">
+                              <b>Order Id: {{order.id}} &nbsp; | &nbsp; Amount Paid: $ {{order.amount_paid}}</b>
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">Special title treatment</h5>
+                              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                              2 days ago
+                            </div>
+                          </div>
+                        <br><br>
+                        
+                    
+                    
+                </div>
+            </center>
+        </div>
+        
+    </div>
+
+    
+
+{% endblock %}
