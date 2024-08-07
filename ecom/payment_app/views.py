@@ -4,13 +4,30 @@ from payment_app.models import ShippingAddress, Order, OrderItem
 from payment_app.forms import ShippingForm, PaymentForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-from store.models import Product
+from store.models import Product, Profile
+from django.urls import reverse
+import datetime
 
 
 def orders(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
         order = Order.objects.get(id=pk)
         items = OrderItem.objects.filter(order=pk)
+        
+        if request.POST:
+            status = request.POST['shipping_status']
+            if status == "true":
+                now = datetime.datetime.now()
+                order.shipped = True
+                order.shipped_date = now
+                order.save()
+            else:
+                order.shipped = False
+                order.save()
+                
+            messages.success(request, "Shipping status updated!")
+            return redirect(reverse('orders', args=[pk]))
+        
         return render(request, "payment_app/orders.html", {"items":items, "order":order})
     
     else:
@@ -103,6 +120,10 @@ def process_order(request):
             for key in list(request.session.keys()):
                 if key == "session_key":
                     del request.session[key]
+                    
+            # Delete Cart from Database
+            current_user = Profile.objects.filter(user__id=request.user.id)
+            current_user.update(old_cart="")
             
             
             messages.success(request, "Order placed!")

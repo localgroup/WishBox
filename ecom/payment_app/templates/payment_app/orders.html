@@ -6,10 +6,17 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-4">
             <div class="text-center text-light">
-                <h1 class="display-4">Orders Shipped</h1>
+                <h1 class="display-4">
+                  {% if order.shipped %}
+                    Status: Order Shipped
+                  {% else %}
+                    Status: Order Not Shipped
+                  {% endif %}
+                </h1>
             </div>
         </div>
     </header>
+
 
     <br>
     <div class="container">
@@ -23,13 +30,55 @@
                               <b>Order Id: {{order.id}} &nbsp; | &nbsp; Amount Paid: $ {{order.amount_paid}}</b>
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">Special title treatment</h5>
-                              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                              <hr>
+                              E-mail: {{order.email}} <br>
+                              {{order.full_name}} <hr>
+                              <hr>
+                              <pre>{{order.shipping_address}}</pre><hr>
+                            
+                              
+                            <div>
+                              <hr>
+                                <em><b>Items Ordered:</b></em> <hr>
+                              {% for item in items %}
+                                <ul>
+                                  <li>
+                                    <center>
+                                      <pre><b>{{item.product}}</b> 
+                                        Qty - {{item.quantity}} 
+                                        Price/item - $ {{item.price}}</pre>
+                                    </center>
+                                    
+                                  </li>
+                                </ul>
+                            
+                              {% endfor %} 
                             </div>
+                            
                             <div class="card-footer text-body-secondary">
-                              2 days ago
+                              {% if not order.shipped %}
+                                <form action="" method="POST">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="shipping_status" value="true">
+                                  <button type="Submit" class="btn btn-outline-primary">Mark As Shipped</button>
+                                </form>
+                              {% else %}
+                              <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="shipping_status" value="false">
+                                <button type="Submit" class="btn btn-outline-danger">Mark As Not Shipped</button>
+                              </form>
+                              {% endif %}
+                              
+                              &nbsp;
+
+                              {% if order.shipped_date %}
+                                <b>Dispatched:  {{order.shipped_date}}</b>
+                              {% else %}
+                                Date Ordered:  {{order.date_ordered}}
+                              {% endif %}
                             </div>
+                          </div>
                           </div>
                         <br><br>
                         
@@ -37,6 +86,7 @@
                     
                 </div>
             </center>
+            <br><br>
         </div>
         
     </div>
