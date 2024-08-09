@@ -4,9 +4,22 @@
     margin: 20px 0;
     cursor: pointer;
   }
+  
   .card-body {
     padding: 20px;
   }
+  
   .btn-rounded {
     border-radius: 20px;
+  }
+  
+  .product-card {
+    max-width: 200px;
+    max-height: 350px;
+  }
+  
+  .product-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
   }
