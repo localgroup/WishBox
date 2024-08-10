@@ -10814,3 +10814,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+}
