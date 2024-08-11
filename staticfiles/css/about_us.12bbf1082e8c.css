@@ -1,0 +1,20 @@
+/* Add glow effect to header paragraph on hover and focus */
+#header-paragraph {
+    transition: all 0.5s ease-in-out;
+}
+#header-paragraph:hover, #header-paragraph:focus {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+    color: #03A9F4; /* Brilliant blue */
+}
+
+/* Add hover effect to about us paragraph */
+.hover-paragraph {
+    transition: all 0.5s ease-in-out;
+}
+.hover-paragraph:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+}
