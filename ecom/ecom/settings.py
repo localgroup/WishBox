@@ -21,7 +21,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['wishbox-production.up.railway.app', 'https://wishbox-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['wishbox-production.up.railway.app', 'https://wishbox-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://wishbox-production.up.railway.app']
 
 
 # Application definition
