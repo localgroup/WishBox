@@ -15,15 +15,15 @@
     <div class="row justify-content-center">
         {% for category in categories %}
             <div class="col-md-3 mb-4">
-                <div class="card">
+                <div data-category-url="{% url 'category' category %}" class="card category-card">
                     <div class="card-body">
-                        <h5><a href="{% url 'category' category %}">{{ category }}</a></h5>
+                        <h5>{{ category }}</h5>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
-<br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
 {% endblock %}

@@ -7,3 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const categoryCards = document.querySelectorAll('.category-card');
+  categoryCards.forEach(function(card) {
+      card.addEventListener('click', function() {
+          const url = card.dataset.categoryUrl; // can be used because the data attribute in the div starts with 'data-'
+          window.location.href = url;
+      });
+  });
+});
