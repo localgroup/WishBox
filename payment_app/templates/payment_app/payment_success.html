@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<body>
-    <!-- Header-->
+    <body>
+        <!-- Header-->
     <header class="bg-warning py-2">
         <div class="container px-4 px-lg-5 my-4">
             <div class="text-center text-dark">
@@ -16,30 +16,33 @@
     <!-- Page Content -->
     <br><br>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <center>
-                    <div class="card text-center">
-                        <div class="card-header bg-warning py-2">
-                            <h3>Thank You!</h3>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-muted">Your payment was successful.</h5>
-                            <p class="card-text">
-                                Your order has been placed, and we are now processing it.
-                                You will receive an email confirmation shortly.
-                            </p>
-                        </div>
-                        <div class="card-footer text-body-secondary bg-warning py-2">
-                            <a href="{% url 'home' %}" class="btn btn-outline-primary">Return to Home</a>
-                        </div>
-                    </div>
-                </center>
-            <br><br>
-        </div>
-    </div>
-    <br>
-</body>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <center>
+                            <div class="card text-center">
+                                <div class="card-header bg-warning py-2">
+                                    <h3>Thank You!</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">Your payment was successful.</h5>
+                                    <p class="card-text">
+                                        Your order has been placed, and we are now processing it.
+                                        You will receive an email confirmation shortly.
+                                    </p>
+                                </div>
+                                <div class="card-footer text-body-secondary bg-warning py-2">
+                                    <a href="{% url 'home' %}" class="btn btn-outline-primary">Return to Home</a>
+                                </div>
+                            </div>
+                        </center>
+                    <br><br>
+                </div>
+            </div>
+        </section>
+        <br><br><br><br><br><br><br>
 
-{% endblock %}
+{% endblock  %}
+
