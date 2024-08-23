@@ -37,9 +37,9 @@
                                                         <h4 class="card-title">{{ product.name }}</h4>
                                                         <p class="card-text">
                                                             {% if product.is_sale %}
-                                                                ${{ product.sale_price }}
+                                                                ₹{{ product.sale_price }}
                                                             {% else %}
-                                                                ${{ product.price }}
+                                                                ₹{{ product.price }}
                                                             {% endif %}
                                                         </p>
                                                         <small class="text-muted">Quantity:
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-body-secondary bg-warning py-2">
-                                <b>Total: $ {{ totals }}</b>
+                                <b>Total: ₹ {{ totals }}</b>
                             </div>
                         </div>
                     </center>
